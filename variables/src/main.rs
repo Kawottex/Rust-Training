@@ -9,6 +9,14 @@ fn main() {
 
     another_function(y);
     branch_function();
+
+    let s = String::from("hello world");
+
+    let word = first_word(&s);
+
+    //s.clear(); // error!
+
+    println!("the first word is: {word}"); // doesn't compile if we use s.clear() -> no reference anymore for word
 }
 
 fn another_function(x: i32) {
@@ -30,3 +38,15 @@ fn branch_function() {
 }
 
 // loop, while, for
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
